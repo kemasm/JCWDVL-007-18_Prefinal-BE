@@ -108,7 +108,7 @@ module.exports = function ({ app, dbConn, upload }) {
   app.get("/posts/:id", (req, res) => {
     const id = req.params.id;
     const getPostSql =
-      "SELECT post.id, post_content, post_caption, post_category, post_created_date, post_created_by, post_number_of_reactions, user_account.user_avatar, user_account.user_full_name, user_account.user_number_of_followers FROM post INNER JOIN user_account ON post.post_created_by = user_account.id WHERE post.id = ?";
+      "SELECT post.id, post_content, post_caption, post_category, post_created_date, post_created_by, post_number_of_reactions, user_account.user_avatar, user_account.user_full_name FROM post INNER JOIN user_account ON post.post_created_by = user_account.id WHERE post.id = ?";
     if (!id) {
       res
         .status(200)
