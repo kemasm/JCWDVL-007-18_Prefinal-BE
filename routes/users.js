@@ -11,12 +11,10 @@ module.exports = function ({ app, dbConn, upload }) {
         [email, username],
         function (error, account) {
           if (account && account.length !== 0) {
-            res
-              .status(400)
-              .jsonp({
-                message:
-                  "The email or username are already used for different account",
-              });
+            res.status(400).jsonp({
+              message:
+                "The email or username are already used for different account",
+            });
           } else {
             const characters =
               "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -178,25 +176,6 @@ module.exports = function ({ app, dbConn, upload }) {
         }
       );
     }
-  });
-
-  app.post("/users/followers", (req, res) => {
-    const { numberOfFollowers, id } = req.body;
-    const updateNumberOfFollowersSql =
-      "UPDATE user_account SET user_number_of_followers = ? WHERE id = ?";
-    dbConn.query(
-      updateNumberOfFollowersSql,
-      [numberOfFollowers, id],
-      function (err, updatedUser) {
-        if (err) {
-          res
-            .status(200)
-            .jsonp({ message: "The system error. Please try again" });
-        } else if (updatedUser) {
-          res.status(200).jsonp({ id });
-        }
-      }
-    );
   });
 
   app.post("/users/posts", (req, res) => {
